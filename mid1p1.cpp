@@ -2,21 +2,21 @@
 //IDE used: VS 22
 
 #include <iostream>
-#include <vector>
-#include <cstdlib>
-#include <ctime>
-using namespace std;
-const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20;
-class DoublyLinkedList {
+#include <vector> //using vectors to store list values
+#include <cstdlib> // using for random list generation
+#include <ctime> // using for random list generation
+using namespace std; //using standard namespace to avoid std::
+const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20; // constant ranges for random and list size
+class DoublyLinkedList { //Doubly linked list class with private node structure
 private:
 struct Node {
-int data;
-Node* prev;
-Node* next;
-Node(int val, Node* p = nullptr, Node* n = nullptr) {
-data = val;
-prev = p;
-next = n;
+int data; // node stores integer value
+Node* prev; //pointer to previous node in list
+Node* next; // pointer to next node in list
+Node(int val, Node* p = nullptr, Node* n = nullptr) { //initializing Node constructor and data
+data = val; // store value in this node
+prev = p; //previous node link
+next = n; //next node link
 }
 };
 Node* head;
@@ -150,14 +150,15 @@ void every_other_element(){
         cout << "List is empty. " << endl;
         return;
     }
-    // traverse list and only print the even-numbered positions
+    // traverse list and only print the odd-numbered positions
     int idx = 1; // position index starting at 1
     while (current) {
-        if (idx % 2 == 0){ // print even number position
+        if (idx % 2 != 0){ // print even number position
             cout << current->data << " ";
+        }
             current = current->next; //moving to next node
             idx++; //increment idx to next position
-        }
+        
     }
 }
 ~DoublyLinkedList() {
