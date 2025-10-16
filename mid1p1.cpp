@@ -74,26 +74,26 @@ if (pos == 1) { //if position is 1 call pop front method to delete head
 pop_front();
 return;
 }
-Node* temp = head;
-for (int i = 1; i < pos; i++){
+Node* temp = head; //temp ponter to head
+for (int i = 1; i < pos; i++){ //run loop to move to position
 if (!temp) { //invalid position check
 cout << "Position doesn't exist." << endl;
 return;
 }
 else
-temp = temp->next;
+temp = temp->next; //move to next node
 }
-if (!temp) {
+if (!temp) { //position check
 cout << "Position doesn't exist." << endl;
 return;
 }
-if (!temp->next) {
+if (!temp->next) { // if position is tail call pop back to delete tail
 pop_back();
 return;
 }
-Node* tempPrev = temp->prev;
-tempPrev->next = temp->next;
-temp->next->prev = tempPrev;
+Node* tempPrev = temp->prev; //keeps pointer to previous node
+tempPrev->next = temp->next; // previous node points to node after temp
+temp->next->prev = tempPrev; // node after temp pints back to previus node
 delete temp;
 }
 void push_back(int v) { //insert node to end of list with value v in parameter
@@ -117,33 +117,33 @@ head = newNode; //the head pointer is updated to the new node
 }
 }
 
-void pop_front() {
-if (!head) {
+void pop_front() { //deletes at node at head of list
+if (!head) { //empty list check
 cout << "List is empty." << endl;
 return;
 }
-Node * temp = head;
+Node * temp = head; //temp pointer to head
 if (head->next) {
-head = head->next;
-head->prev = nullptr;
+head = head->next; // move head forwrd
+head->prev = nullptr; // new head previous is null
 }
 else
-head = tail = nullptr;
-delete temp;
+head = tail = nullptr; //otherwise head and tail are null
+delete temp; //delete old head
 }
-void pop_back() {
+void pop_back() { //deletes node at tail of list
 if (!tail) {
 cout << "List is empty." << endl;
 return;
 }
-Node * temp = tail;
-if (tail->prev) {
-tail = tail->prev;
-tail->next = nullptr;
+Node * temp = tail; // temp pointer to tail
+if (tail->prev) { // if there is a previous node to tail
+tail = tail->prev; // move back tail
+tail->next = nullptr; // new tail next is now null
 }
 else
-head = tail = nullptr;
-delete temp;
+head = tail = nullptr; // othersie head and tail are null
+delete temp; //delete old tail
 }
 void every_other_element(){
     Node * current = head; // starting traversal from head of list
@@ -162,46 +162,45 @@ void every_other_element(){
         
     }
 }
-~DoublyLinkedList() {
+~DoublyLinkedList() { //destructor
 while (head) {
 Node* temp = head;
 head = head->next;
 delete temp;
 }
 }
-void print() {
-Node* current = head;
-if (!current) {
+void print() { //print list head to tail
+Node* current = head; //pointer current to head
+if (!current) { //empty list check
 cout << "List is empty." << endl;
 return;
 }
-while (current) {
-cout << current->data << " ";
-current = current->next;
+while (current) { // traverse list while current is not null
+cout << current->data << " "; //print current node
+current = current->next; //move to next
 }
 cout << endl;
 }
-void print_reverse() {
-Node* current = tail;
-if (!current) {
-cout << "List is empty." << endl;
+void print_reverse() { //print in reverse tail to head
+Node* current = tail; //pointer curent to tail
+cout << "List is empty." << endl; //empty list check
 return;
-}
+
 while (current) {
-cout << current->data << " ";
-current = current->prev;
+cout << current->data << " "; //print current node
+current = current->prev; //move to previous
 }
 cout << endl;
 }
 };
 int main() {
     int size = rand() % (MAX_LS-MIN_LS+1) + MIN_LS;
-    vector<int> values;
+    vector<int> values; //random values stored in vector with size restrictions
     for (int i = 0; i < size; i++){
         values.push_back(rand() % (MAX_NR-MIN_NR+1) + MIN_NR);
-    }
+    } //push back into vector to shore
     DoublyLinkedList list;
-    for (int v : values){
+    for (int v : values){ // to transfer values from vector to list
         list.push_back(v);
     }
     cout << "List forward: \n";
