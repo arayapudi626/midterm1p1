@@ -153,7 +153,11 @@ void every_other_element(){
     // traverse list and only print the even-numbered positions
     int idx = 1; // position index starting at 1
     while (current) {
-
+        if (idx % 2 == 0){ // print even number position
+            cout << current->data << " ";
+            current = current->next; //moving to next node
+            idx++; //increment idx to next position
+        }
     }
 }
 ~DoublyLinkedList() {
@@ -205,7 +209,8 @@ int main() {
     list.print_reverse();
 
     cout << "Every other element(starting from 1st position): \n";
-    //list.every_other_element();
+    list.every_other_element();
+    list.print();
 
 
 return 0;
