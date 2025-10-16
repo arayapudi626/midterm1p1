@@ -19,64 +19,64 @@ prev = p; //previous node link
 next = n; //next node link
 }
 };
-Node* head;
-Node* tail;
+Node* head; //pointer to head of list
+Node* tail; // pointer to last node of list
 public:
-DoublyLinkedList() { head = nullptr; tail = nullptr; }
-void insert_after(int value, int position) {
-if (position < 0) {
+DoublyLinkedList() { head = nullptr; tail = nullptr; } // constructor intitialzes head and tail to null
+void insert_after(int value, int position) { //node inserted after the node at index position
+if (position < 0) { //check for negative position
 cout << "Position must be >= 0." << endl;
 return;
 }
-Node* newNode = new Node(value);
-if (!head) {
+Node* newNode = new Node(value); //create a new node with value in parameter
+if (!head) { // if list is empty the new node is the head and tail
 head = tail = newNode;
 return;
 }
-Node* temp = head;
-for (int i = 0; i < position && temp; ++i)
-temp = temp->next;
-if (!temp) {
+Node* temp = head; // traversing list starts at head
+for (int i = 0; i < position && temp; ++i) // move foward based on position index
+temp = temp->next; //move to next node
+if (!temp) { //position out of range check
 cout << "Position exceeds list size. Node not inserted.\n";
-delete newNode;
+delete newNode; //delete new node to avoid memory leak
 return;
 }
-newNode->next = temp->next;
-newNode->prev = temp;
+newNode->next = temp->next; //new node becomes next of temp
+newNode->prev = temp; // new node previous is temp
 if (temp->next)
-temp->next->prev = newNode;
+temp->next->prev = newNode; //node after temp points back to new node
 else
-tail = newNode;
-temp->next = newNode;
+tail = newNode; //node points back to new node if temp is not tail
+temp->next = newNode;  //temp to new node
 }
-void delete_val(int value) {
-if (!head) return;
-Node* temp = head;
+void delete_val(int value) { //delete first node if data equals value
+if (!head) return; //if list empty check -> return
+Node* temp = head; //starting at head  of list
 while (temp && temp->data != value)
-temp = temp->next;
+temp = temp->next; //keep looking for value past unmatched ones
 if (!temp) return;
-if (temp->prev)
+if (temp->prev) //update links to surround temp
 temp->prev->next = temp->next;
 else
-head = temp->next;
+head = temp->next; // if temp is the head move forward
 if (temp->next)
 temp->next->prev = temp->prev;
 else
-tail = temp->prev;
+tail = temp->prev; // if temp is tail move back
 delete temp;
 }
-void delete_pos(int pos) {
-if (!head) {
+void delete_pos(int pos) { //delete node at the position pos
+if (!head) { //empty list check
 cout << "List is empty." << endl;
 return;
 }
-if (pos == 1) {
+if (pos == 1) { //if position is 1 call pop front method to delete head
 pop_front();
 return;
 }
 Node* temp = head;
 for (int i = 1; i < pos; i++){
-if (!temp) {
+if (!temp) { //invalid position check
 cout << "Position doesn't exist." << endl;
 return;
 }
@@ -96,26 +96,27 @@ tempPrev->next = temp->next;
 temp->next->prev = tempPrev;
 delete temp;
 }
-void push_back(int v) {
-Node* newNode = new Node(v);
-if (!tail)
-head = tail = newNode;
+void push_back(int v) { //insert node to end of list with value v in parameter
+Node* newNode = new Node(v); //create new node with value v
+if (!tail) //list is empty if tail is null
+head = tail = newNode; //if empty the new node is the head and tail
 else {
-tail->next = newNode;
-newNode->prev = tail;
-tail = newNode;
+tail->next = newNode; // otherwise the tail's next is the new node
+newNode->prev = tail; //the new node previous is the old tail
+tail = newNode; //the tail pointer is updated to the new node
 }
 }
-void push_front(int v) {
-Node* newNode = new Node(v);
-if (!head)
-head = tail = newNode;
+void push_front(int v) { //insert node to head of list with value v in parameter
+Node* newNode = new Node(v); //create new node with value v
+if (!head) //list is empty if head is null
+head = tail = newNode; //if empty the new node is the head and tail
 else {
-newNode->next = head;
-head->prev = newNode;
-head = newNode;
+newNode->next = head; // otherwise the head's next is the new node
+head->prev = newNode; //the new node previous is the old head
+head = newNode; //the head pointer is updated to the new node
 }
 }
+
 void pop_front() {
 if (!head) {
 cout << "List is empty." << endl;
