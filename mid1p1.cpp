@@ -1,4 +1,10 @@
+//COMSC 210 | Midterm 1, Part 1 | Anisha Rayapudi
+//IDE used: VS 22
+
 #include <iostream>
+#include <vector>
+#include <cstdlib>
+#include <ctime>
 using namespace std;
 const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20;
 class DoublyLinkedList {
@@ -139,12 +145,16 @@ head = tail = nullptr;
 delete temp;
 }
 void every_other_element(){
-    Node * current = head;
-    if (!current) {
+    Node * current = head; // starting traversal from head of list
+    if (!current) { // condition to check for an empty list
         cout << "List is empty. " << endl;
         return;
     }
-    
+    // traverse list and only print the even-numbered positions
+    int idx = 1; // position index starting at 1
+    while (current) {
+
+    }
 }
 ~DoublyLinkedList() {
 while (head) {
@@ -179,7 +189,24 @@ cout << endl;
 }
 };
 int main() {
-cout << MIN_NR + MIN_LS + MAX_NR + MAX_LS; // dummy statement to avoid
-//compiler warning
+    int size = rand() % (MAX_LS-MIN_LS+1) + MIN_LS;
+    vector<int> values;
+    for (int i = 0; i < size; i++){
+        values.push_back(rand() % (MAX_NR-MIN_NR+1) + MIN_NR);
+    }
+    DoublyLinkedList list;
+    for (int v : values){
+        list.push_back(v);
+    }
+    cout << "List forward: \n";
+    list.print();
+
+    cout << "List backward: \n";
+    list.print_reverse();
+
+    cout << "Every other element(starting from 1st position): \n";
+    //list.every_other_element();
+
+
 return 0;
 }
